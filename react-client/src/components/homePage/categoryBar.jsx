@@ -2,21 +2,21 @@ import React from 'react';
 
 import styledHome from './styledHomeIndex.js';
 
-const LocationBar = (props) => {
+const CategoryBar = (props) => {
   const { StyLocInput } = styledHome;
   return (
     <div>
       <form>
         <StyLocInput
           type="text"
-          name="LocationBar"
-          value={props.location}
-          onChange={props.updateLocation}
-          placeholder="Enter Your Location or City Here!"
+          name="CategoryBar"
+          value={props.term}
+          onChange={props.updateTerm}
+          placeholder="What are you feeling today?"
         /> 
       </form>
     </div>
   );
 }
 
-export default LocationBar;
+export default CategoryBar;
