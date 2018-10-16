@@ -65,5 +65,5 @@ class FinalPage extends React.Component{
 }
 
 export default GoogleApiWrapper({
-  apiKey: ()
+  apiKey: ('ENTER GOOGLE MAPS KEY')
 })(FinalPage)

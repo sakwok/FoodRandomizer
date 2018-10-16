@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 db.on('error', function() {
   console.log('mongoose connection error');
@@ -11,21 +11,34 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+const restaurantSchema = mongoose.Schema({
+  alias: String,
+  categories: [],
+  coordinates: {latitude: Number, longitude: Number},
+  display_phone: String,
+  distance: Number,
+  id: String,
+  image_url: String,
+  is_closed: Boolean,
+  location: {address1: String, address2: String, address3: String, city: String, country: String, display_address: String, state: String, zip_code: String},
+  name: String,
+  phone: String,
+  rating: Number,
+  review_count: Number,
+  transactions: [],
+  url: String,
 });
 
-var Item = mongoose.model('Item', itemSchema);
+const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
-var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else {
-      callback(null, items);
+const insertRes = (restaur) => {
+  Restaurant.create(restaur, (err) => {
+    if (err) {
+      console.log(err);
     }
-  });
-};
+  })
+}
 
-module.exports.selectAll = selectAll;
+module.exports = {
+  insertRes,
+};

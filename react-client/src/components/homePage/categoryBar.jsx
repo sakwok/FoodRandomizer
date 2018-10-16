@@ -12,7 +12,7 @@ const CategoryBar = (props) => {
           name="CategoryBar"
           value={props.term}
           onChange={props.updateTerm}
-          placeholder="What are you feeling today?"
+          placeholder="What do you feel like having today?"
         /> 
       </form>
     </div>
