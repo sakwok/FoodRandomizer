@@ -16,19 +16,42 @@ const client = yelp.client(process.env.YELPAPI);
 
 const randomBound = (min, max) => Math.round(Math.random() * (max - min) + min);
 
-app.get('/api/random/:location', function (req, res) {
-  const searchRequest = {
-    radius: 16093,
+app.get('/api/random/:location/', function (req, res) {
+  let searchRequest;
+
+  searchRequest = {
+    radius: 10000,
     location: req.params.location,
     limit: 50,
-    category: categories[randomBound(0, categories.length - 1)],
+    categories: categories[randomBound(0, categories.length - 1)],
     open_now: true,
   };
+
+  client.search(searchRequest).then(response => {
+    const randomResult = response.jsonBody.businesses[randomBound(0, response.jsonBody.businesses.length - 1)];
+    res.send(JSON.stringify(randomResult, null, 4)); 
+    }).catch(e => {
+      res.send(e);
+    });
+});
+
+app.get('/api/random/:location/:term', function (req, res) {
+  let searchRequest;
+  
+  searchRequest = {
+    radius: 10000,
+    location: req.params.location,
+    limit: 50,
+    term: req.params.term,
+    open_now: true,
+  }
+
   client.search(searchRequest).then(response => {
     const randomResult = response.jsonBody.businesses[randomBound(0, response.jsonBody.businesses.length - 1)];
     res.send(JSON.stringify(randomResult, null, 4)); 
     }).catch(e => {
       console.log(e);
+      res.send(e);
     });
 });
 

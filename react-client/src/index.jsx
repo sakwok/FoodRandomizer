@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Header from './components/header/header.jsx';
 import HomePage from './components/homePage/homePage.jsx';
+import FinalPage from './components/finalPage/finalPage.jsx';
+import styledIndex from './styledIndex.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,6 +14,7 @@ class App extends React.Component {
       restaurant: '',
     };
     this.setFinalPage = this.setFinalPage.bind(this);
+    this.setErrorPage = this.setErrorPage.bind(this);
   }
 
   setFinalPage(rest) {
@@ -20,21 +24,36 @@ class App extends React.Component {
     });
   }
 
+  setErrorPage() {
+    this.setState({
+      page: 'error'
+    })
+  }
+
   render() {
-    if (this.state.page === 'home') {
-      return (
-        <div>
-          <HomePage final={this.setFinalPage}/>  
-        </div>
-      );
-    }
+    let page;
+    
     if(this.state.page === 'final') {
+      page = <FinalPage restaurant={this.state.restaurant}/>  
+    }
+    if(this.state.page === 'error') {
       return (
         <div>
-          <FinalPage restaurant={this.state.restaurant}/>
+          Error
         </div>
-      );
+      )
     }
+    if (this.state.page === 'home') {
+      page = <HomePage final={this.setFinalPage} error={this.setErrorPage}/>
+    }
+
+    const { StyBackgroundDiv } = styledIndex;
+    return (
+      <StyBackgroundDiv>
+          <Header />
+          {page}
+      </StyBackgroundDiv>
+    );
   }
 }
 
