@@ -38,11 +38,12 @@ right: 4px;
 position: relative;
 `;
 
-const StyNumRatSpan = styled.span`
+const StyNumRatA = styled.a`
 position: relative;
 bottom: 10px;
 margin-left: 5px;
 color: rgb(169, 171, 173);
+text-decoration: none;
 `;
 
 const StyStdDiv = styled.div`
@@ -57,6 +58,15 @@ bottom: 95px;
 z-index: 402px;
 `;
 
+const StyDonutImg = styled.img`
+width: 225px;
+height: 225px;
+position: absolute;
+left: 600px;
+bottom: 90px
+cursor: pointer;
+`;
+
 export default {
   StyResImg,
   StyLeftDiv,
@@ -64,7 +74,8 @@ export default {
   StyResNameDiv,
   StyRateDiv,
   StyStarsSpan,
-  StyNumRatSpan,
+  StyNumRatA,
   StyStdDiv,
   StyMapDiv,
+  StyDonutImg,
 };

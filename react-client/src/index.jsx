@@ -12,16 +12,28 @@ class App extends React.Component {
     this.state = {
       page: 'home',
       restaurant: '',
+      location: '',
+      term: '',
     };
     this.setFinalPage = this.setFinalPage.bind(this);
     this.setErrorPage = this.setErrorPage.bind(this);
   }
 
-  setFinalPage(rest) {
-    this.setState({
-      page: 'final',
-      restaurant: rest,
-    });
+  setFinalPage(rest, loc, term) {
+    if (term) {
+      this.setState({
+        page: 'final',
+        restaurant: rest,
+        location: loc,
+        term: term,
+      });
+    } else {
+      this.setState({
+        page: 'final',
+        restaurant: rest,
+        location: loc,
+      });
+    }
   }
 
   setErrorPage() {
@@ -34,7 +46,7 @@ class App extends React.Component {
     let page;
     
     if(this.state.page === 'final') {
-      page = <FinalPage restaurant={this.state.restaurant}/>  
+      page = <FinalPage restaurant={this.state.restaurant} location={this.state.location} term={this.state.term} final={this.setFinalPage}/>  
     }
     if(this.state.page === 'error') {
       return (

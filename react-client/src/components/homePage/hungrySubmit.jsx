@@ -7,12 +7,20 @@ class HungrySubmit extends React.Component {
   constructor(props) {
     super(props);
     this.getRestaurant = this.getRestaurant.bind(this);
+    this.enterRestaurant = this.enterRestaurant.bind(this);
+  }
+
+  enterRestaurant(e) {
+    if (e.key === 'Enter') { 
+      console.log(e.key)
+      this.getRestaurant();
+    }
   }
 
   getRestaurant() {
     if(this.props.term) {
       axios.get(`/api/random/${this.props.location}/${this.props.term}`).then((res) => {  
-        this.props.final(res.data);
+        this.props.final(res.data, this.props.location, this.props.term);
         console.log(res.data);
       }).catch((e) => {
         console.log(e);
@@ -20,7 +28,7 @@ class HungrySubmit extends React.Component {
       });
     } else {
       axios.get(`/api/random/${this.props.location}`).then((res) => {  
-        this.props.final(res.data);
+        this.props.final(res.data, this.props.term);
         console.log(res)
       }).catch(() => {
         this.props.error();
@@ -38,6 +46,7 @@ class HungrySubmit extends React.Component {
             name="HungrySubmit"
             value="I'm Feeling Hungry!"
             onClick={this.getRestaurant}
+            
             onMouseEnter={this.props.dance}
             onMouseLeave={this.props.stopDance}
           /> 
